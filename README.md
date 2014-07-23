@@ -1,1 +1,1 @@
-Simple one room chat app using socket.io
+This project is a simple demonstration of creating a server that pushes real-time updates to an angular app using socket.io.  It shows how to implement three-way data-binding with angular, express and socket.io.
