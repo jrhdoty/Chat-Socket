@@ -1,0 +1,24 @@
+{
+  "name": "Chat-Socket",
+  "version": "0.0.0",
+  "description": "Simple chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrhdoty/Chat-Socket.git"
+  },
+  "author": "John Doty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrhdoty/Chat-Socket/issues"
+  },
+  "homepage": "https://github.com/jrhdoty/Chat-Socket",
+  "dependencies": {
+    "angular": "^1.2.19",
+    "express": "^4.6.1",
+    "hamljs": "^0.6.2"
+  }
+}
