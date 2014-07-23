@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Chat Socket</title>
+  </head>
+  <body ng-app='app'>
+    <script src = 'angular/angular.js'></script>
+    <script src = 'angular-ui-router/release/angular-ui-router.js'></script>
+    <script src = 'angular/app.js'></script>
+
+    <div ng-controller='chatroom'>
+      <form ng-show='!currentUser'>
+        Name: <input type='text' name = 'name' ng-model='tempUser'>
+        <input type="submit" value="Submit" ng-click='setUser()'>
+      </form>
+      <div ng-show='currentUser'>
+        <h1>
+          Hi, {{currentUser}}
+        </h1>
+        <ol>
+          <li ng-repeat='message in messages'>
+            <div> {{message.text}} </div>
+            <div> {{message.user}} </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+  </body>
+</html>
+
