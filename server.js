@@ -12,8 +12,9 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  socket.on('message:post', function(msg){
-    console.log('message: ' + msg);
+  socket.on('message:send', function(msg){
+    console.log('message: ' + msg.message);
+    io.emit('message:get', msg);
   });
 });
 
