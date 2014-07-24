@@ -12,7 +12,9 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+  socket.on('message:post', function(msg){
+    console.log('message: ' + msg);
+  });
 });
 
 var server = http.listen(3000, function(){
