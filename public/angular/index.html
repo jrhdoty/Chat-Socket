@@ -3,11 +3,11 @@
     <title>Chat Socket</title>
   </head>
   <body ng-app='app'>
+    <script src="/socket.io/socket.io.js"></script>
     <script src = 'angular/angular.js'></script>
     <script src = 'angular-ui-router/release/angular-ui-router.js'></script>
     <script src = 'angular/app.js'></script>
     <!-- <script src = 'socket.io/lib/socket.js'></script> -->
-    <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
     </script>
@@ -20,6 +20,8 @@
         <h1>
           Hi, {{currentUser}}
         </h1>
+        <input type='text' name = 'message' ng-model='currentMessage'>
+        <input type="submit" value="Submit" ng-click='submit()'>
         <ol>
           <li ng-repeat='message in messages'>
             <div> {{message.text}} </div>
