@@ -16,6 +16,7 @@ angular.module('app', ['ui.router'])
       on : function(event, callback){
         socket.on(event, function(){
           var args = arguments;
+          console.log('on: ', args);
           $rootScope.$apply(function(){
             callback.apply(socket, args);
           });
@@ -33,16 +34,23 @@ angular.module('app', ['ui.router'])
     };
   })
   .factory('messages', function(socket){
-    var messageList = null;
+    var messageList = [];
+
+    socket.on('message:get', function(msg){
+      messageList.push(msg);
+      console.log('messageList: ', messageList);
+    });
+
     return {
       postMessage:function(message){
-        socket.emit('message:post', message);
-      }
+        socket.emit('message:send', message);
+      },
+      getMessageList: function(){return messageList;}
     };
   })
   .controller('chatroom', function($scope, messages){
     $scope.currentUser = null;
-    // $scope.messages = messages.getMessageList();
+    $scope.messages = messages.getMessageList();
 
     $scope.setUser = function(){
       console.log('setting currentUser');
@@ -50,6 +58,10 @@ angular.module('app', ['ui.router'])
     };
 
     $scope.submit = function(){
-      messages.postMessage($scope.currentMessage);
-    };
-  });
+      messages.postMessage(
+      {
+        message: $scope.currentMessage,
+        user: $scope.currentUser
+     });
+  };
+});
