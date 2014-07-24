@@ -9,17 +9,47 @@ angular.module('app', ['ui.router'])
         url:'/account',
         templateUrl:'partials/account'
       });
-})
-  .controller('chatroom', function($scope){
+})  
+  .factory('socket', function($rootScope){
+    var socket = io.connect();
+    return {
+      on : function(event, callback){
+        socket.on(event, function(){
+          var args = arguments;
+          $rootScope.$apply(function(){
+            callback.apply(socket, args);
+          });
+        });
+      },
+
+      emit: function(event, data, callback){
+        socket.emit(event, data, function(){
+          var args = arguments;
+          $rootScope.$apply(function(){
+            callback.apply(socket, args);
+          });
+        });
+      }
+    };
+  })
+  .factory('messages', function(socket){
+    var messageList = null;
+    return {
+      postMessage:function(message){
+        socket.emit('message:post', message);
+      }
+    };
+  })
+  .controller('chatroom', function($scope, messages){
     $scope.currentUser = null;
-    $scope.messages = [];
-    $scope.messages.push(
-      { 
-        text: 'hello world',
-        user: 'john doe'
-      });
+    // $scope.messages = messages.getMessageList();
+
     $scope.setUser = function(){
       console.log('setting currentUser');
       $scope.currentUser = $scope.tempUser;
+    };
+
+    $scope.submit = function(){
+      messages.postMessage($scope.currentMessage);
     };
   });
