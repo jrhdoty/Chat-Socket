@@ -6,7 +6,11 @@
     <script src = 'angular/angular.js'></script>
     <script src = 'angular-ui-router/release/angular-ui-router.js'></script>
     <script src = 'angular/app.js'></script>
-
+    <!-- <script src = 'socket.io/lib/socket.js'></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+    </script>
     <div ng-controller='chatroom'>
       <form ng-show='!currentUser'>
         Name: <input type='text' name = 'name' ng-model='tempUser'>
