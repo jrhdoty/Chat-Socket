@@ -31,15 +31,15 @@
         <div class="panel panel-default" style="position: relative; min-height: 50%; overflow:scroll; max-height:300px">
           <ol>
             <li ng-repeat='message in messages'>
-              <span ng-class='{user: message.currentUser}'>{{message.user}}:</span> {{message.message}}, {{message.currentUser}}
+              <span ng-class='{user: message.currentUser, stranger: !message.currentUser}'>{{message.user}}:</span> {{message.message}}, {{message.currentUser}}
             </li>
           </ol>
         </div>
         <form class=''>
           <div class="form-group">
-            <textarea type='text' name='message' style='width:85%; resize:none;  float:left; height:75px' ng-model='currentMessage' class='form-control' enter-submit="submit()"></textarea>
+            <textarea type='text' name='message' style='width:79%; resize:none;  float:left; height:75px' ng-model='currentMessage' class='form-control' enter-submit="submit()"></textarea>
           </div>
-          <input type="submit" class="btn btn-block btn-lg btn-warning" value="Submit" style="width:14%; height:75px; margin-left:10px; float:right" ng-click='submit()'>
+          <input type="submit" class="btn btn-block btn-lg btn-warning" value="Submit" style="width:20%; height:75px; float:right" ng-click='submit()'>
         </form>
       </div>
     </div>
