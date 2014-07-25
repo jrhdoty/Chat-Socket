@@ -33,10 +33,17 @@ angular.module('app', ['ui.router'])
       }
     };
   })
-  .factory('messages', function(socket){
+  .factory('messages', function(socket, $rootScope){
     var messageList = [];
 
     socket.on('message:get', function(msg){
+      console.log('rootscope user: ', $rootScope.currentUser);
+      console.log('msg user: ', msg.user);
+
+      if($rootScope.currentUser === msg.user){
+        console.log('setting currentUser attr on msg');
+        msg.currentUser = true;
+      }
       messageList.push(msg);
       console.log('messageList: ', messageList);
     });
@@ -48,13 +55,13 @@ angular.module('app', ['ui.router'])
       getMessageList: function(){return messageList;}
     };
   })
-  .controller('chatroom', function($scope, messages){
-    $scope.currentUser = null;
+  .controller('chatroom', function($rootScope, $scope, messages){
+    $rootScope.currentUser = null;
     $scope.messages = messages.getMessageList();
 
     $scope.setUser = function(){
       console.log('setting currentUser');
-      $scope.currentUser = $scope.tempUser;
+      $rootScope.currentUser = $scope.tempUser;
     };
 
     $scope.submit = function(){
@@ -64,4 +71,22 @@ angular.module('app', ['ui.router'])
         user: $scope.currentUser
      });
   };
-});
+})
+  .directive('enterSubmit', function () {
+    return {
+      restrict: 'A',
+      link: function (scope, elem, attrs) {
+       
+        elem.bind('keydown', function(event) {
+          var code = event.keyCode || event.which;
+                  
+          if (code === 13) {
+            if (!event.shiftKey) {
+              event.preventDefault();
+              scope.$apply(attrs.enterSubmit);
+            }
+          }
+        });
+      }
+    };
+  });
