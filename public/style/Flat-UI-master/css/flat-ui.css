@@ -4710,5 +4710,8 @@ footer p {
 }
 
 .user {
-  color: blue;
+  color:#3498DB;
+}
+.stranger {
+  color:#E74C3C;
 }
