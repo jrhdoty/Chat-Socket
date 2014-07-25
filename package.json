@@ -19,7 +19,6 @@
   "dependencies": {
     "angular": "^1.2.19",
     "express": "^4.6.1",
-    "hamljs": "^0.6.2",
     "socket.io": "^1.0.6"
   }
 }
