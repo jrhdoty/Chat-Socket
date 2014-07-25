@@ -1,36 +1,51 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat Socket</title>
-  </head>
-  <body ng-app='app'>
-    <script src="/socket.io/socket.io.js"></script>
+    <link   rel = 'stylesheet' type='text/css' href = 'style/Flat-UI-master/bootstrap/css/bootstrap.css'></link>
+    <link   rel = 'stylesheet' type='text/css' href = 'style/Flat-UI-master/css/flat-ui.css'></link>
+    <script src = '/socket.io/socket.io.js'></script>
     <script src = 'angular/angular.js'></script>
     <script src = 'angular-ui-router/release/angular-ui-router.js'></script>
     <script src = 'angular/app.js'></script>
-    <!-- <script src = 'socket.io/lib/socket.js'></script> -->
-    <script>
-      var socket = io();
-    </script>
-    <div ng-controller='chatroom'>
-      <form ng-show='!currentUser'>
-        Name: <input type='text' name = 'name' ng-model='tempUser'>
-        <input type="submit" value="Submit" ng-click='setUser()'>
-      </form>
+  </head>
+  <body ng-app='app'>
+    <div class="container" ng-controller='chatroom'>
+      <h2 class="page-header">Welcome to ChatterSocket</h2>
+
+      <div class="panel panel-default form-horizontal col-md-4 col-md-offset-4" ng-show='!currentUser'>
+        <div class="panel-body">
+          <form class=''>
+            <div class="form-group">
+              <input type='text' class='form-control' placeholder="Username" name ='name' ng-model='tempUser'>
+            </div>
+            <input type="submit" class='btn btn-block btn-lg btn-primary' value="Submit" ng-click='setUser()'>
+          </form>
+        </div>
+      </div>
+
       <div ng-show='currentUser'>
-        <h1>
+        <h6>
           Hi, {{currentUser}}
-        </h1>
-        <input type='text' name = 'message' ng-model='currentMessage'>
-        <input type="submit" value="Submit" ng-click='submit()'>
-        <ol>
-          <li ng-repeat='message in messages'>
-            <div> {{message.message}} </div>
-            <div> {{message.user}} </div>
-          </li>
-        </ol>
+        </h6>
+        <div class="panel panel-default" style="position: relative; min-height: 50%; overflow:scroll; max-height:300px">
+          <ol>
+            <li ng-repeat='message in messages'>
+              <span ng-class='{user: message.currentUser}'>{{message.user}}:</span> {{message.message}}, {{message.currentUser}}
+            </li>
+          </ol>
+        </div>
+        <form class=''>
+          <div class="form-group">
+            <textarea type='text' name='message' style='width:85%; resize:none;  float:left; height:75px' ng-model='currentMessage' class='form-control' enter-submit="submit()"></textarea>
+          </div>
+          <input type="submit" class="btn btn-block btn-lg btn-warning" value="Submit" style="width:14%; height:75px; margin-left:10px; float:right" ng-click='submit()'>
+        </form>
       </div>
     </div>
-
   </body>
 </html>
+
+
+
 
