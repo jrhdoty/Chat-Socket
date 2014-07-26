@@ -28,10 +28,10 @@
         <h6>
           Hi, {{currentUser}}
         </h6>
-        <div class="panel panel-default" style="position: relative; min-height: 50%; overflow:scroll; max-height:300px">
+        <div class="panel panel-default" style="position: relative; min-height: 50%; overflow:scroll; max-height:300px" scroll-glue>
           <ol>
             <li ng-repeat='message in messages'>
-              <span ng-class='{user: message.currentUser, stranger: !message.currentUser}'>{{message.user}}:</span> {{message.message}}, {{message.currentUser}}
+              <span ng-class='{user: message.currentUser, stranger: !message.currentUser}'>{{message.user}}:</span> {{message.message}}
             </li>
           </ol>
         </div>
