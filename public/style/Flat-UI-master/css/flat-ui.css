@@ -4715,3 +4715,8 @@ footer p {
 .stranger {
   color:#E74C3C;
 }
+
+ol {
+  list-style:none;
+}
+
