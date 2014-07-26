@@ -9,6 +9,7 @@
     <script src = 'angular-ui-router/release/angular-ui-router.js'></script>
     <script src = 'angular/app.js'></script>
   </head>
+
   <body ng-app='app'>
     <div class="container" ng-controller='chatroom'>
       <h2 class="page-header">Welcome to ChatterSocket</h2>
@@ -28,7 +29,7 @@
         <h6>
           Hi, {{currentUser}}
         </h6>
-        <div class="panel panel-default" style="position: relative; min-height: 50%; overflow:scroll; max-height:300px" scroll-glue>
+        <div id="messageContainer" class="panel panel-default" style="position: relative; min-height: 50%; overflow:scroll; max-height:300px" items="messages" auto-scroll>
           <ol>
             <li ng-repeat='message in messages'>
               <span ng-class='{user: message.currentUser, stranger: !message.currentUser}'>{{message.user}}:</span> {{message.message}}

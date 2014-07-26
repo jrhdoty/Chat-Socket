@@ -16,7 +16,6 @@ angular.module('app', ['ui.router'])
       on : function(event, callback){
         socket.on(event, function(){
           var args = arguments;
-          console.log('on: ', args);
           $rootScope.$apply(function(){
             callback.apply(socket, args);
           });
@@ -37,15 +36,11 @@ angular.module('app', ['ui.router'])
     var messageList = [];
 
     socket.on('message:get', function(msg){
-      console.log('rootscope user: ', $rootScope.currentUser);
-      console.log('msg user: ', msg.user);
 
       if($rootScope.currentUser === msg.user){
-        console.log('setting currentUser attr on msg');
         msg.currentUser = true;
       }
       messageList.push(msg);
-      console.log('messageList: ', messageList);
     });
 
     return {
@@ -60,7 +55,6 @@ angular.module('app', ['ui.router'])
     $scope.messages = messages.getMessageList();
 
     $scope.setUser = function(){
-      console.log('setting currentUser');
       $rootScope.currentUser = $scope.tempUser;
     };
 
@@ -76,7 +70,9 @@ angular.module('app', ['ui.router'])
     return {
       restrict: 'A',
       link: function (scope, elem, attrs) {
-       
+        console.log('scope is: ', scope);
+        console.log('elem is: ', elem);
+        console.log('attrs is: ', attrs);
         elem.bind('keydown', function(event) {
           var code = event.keyCode || event.which;
                   
@@ -89,4 +85,21 @@ angular.module('app', ['ui.router'])
         });
       }
     };
-  });
+  })
+  .directive('autoScroll', function(){
+    return {
+      restrict: 'A',
+      scope: {
+        items:'=items'
+      },
+      link:function(scope, elem, attr){
+        console.log("INSIDE AUTOSCROLL");
+        console.log("scope.items: ", scope.items);
+        scope.$watch('items', function(newItems, oldItems){
+          elem[0].scrollTop = elem[0].scrollHeight;
+        }, true);
+      }
+    };
+});
+
+
