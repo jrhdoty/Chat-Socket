@@ -80,6 +80,7 @@ angular.module('app', ['ui.router'])
             if (!event.shiftKey) {
               event.preventDefault();
               scope.$apply(attrs.enterSubmit);
+              elem[0].value = '';
             }
           }
         });
